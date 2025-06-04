@@ -69,7 +69,7 @@ export default function Home() {
                         if (confirm("💀 Você perdeu tudo! Quer recomeçar o jogo?")) {
                             recomeçar();
                         }
-                    }, 1000);
+                    }, 500);
                 } else if (novoSaldo > 0 && novoSaldo < 1) {
                     setTimeout(() => {
                         if (confirm("⚠️ Seu saldo é insuficiente para continuar. Quer recomeçar o jogo?")) {
@@ -83,7 +83,7 @@ export default function Home() {
 
             setGirando(false);
             setAposta("");
-        }, 2000);
+        }, 500);
     };
 
     const recomeçar = () => {

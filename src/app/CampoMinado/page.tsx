@@ -66,7 +66,7 @@ export default function Home() {
                 alert("Você perdeu tudo!");
                 atualizarSaldo(0);
                 iniciarJogo();
-            }, 1000);
+            }, 500);
         } else {
             const premio = Number(aposta) * 1.5;
             const novoSaldo = saldo + premio;
