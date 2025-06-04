@@ -64,13 +64,13 @@ export default function Home() {
             setSaldo((prev) => {
                 const novoSaldo = Math.max(prev + ganho, 0);
 
-                if (novoSaldo === 0) {
+                if (novoSaldo <= 0) {
                     setTimeout(() => {
                         if (confirm("💀 Você perdeu tudo! compre outra ficha para continuar!")) {
                             recomecar();
                         }
                     }, 500);
-                } else if (novoSaldo > 0 && novoSaldo < 1) {
+                } else if (novoSaldo < 1) {
                     setTimeout(() => {
                         if (confirm("⚠️ Seu saldo é insuficiente para continuar. Quer recomeçar o jogo?")) {
                             recomecar();

@@ -60,15 +60,15 @@ export default function Home() {
 
         if (minas[x][y]) {
             somExplosao?.play();
-            setMessage(`💥 BOOM! Você perdeu R$ ${Number(aposta).toFixed(2)}.`);
+            setMessage(`💥 BOOM! Você perdeu R$ ${Number(saldo).toFixed(2)}.`);
             setJogoAtivo(false);
             setTimeout(() => {
                 alert("Você perdeu tudo!");
-                atualizarSaldo(0);
+                atualizarSaldo(10);
                 iniciarJogo();
             }, 500);
         } else {
-            const premio = Number(aposta) * 1.5;
+            const premio = Number(saldo) * 1.5;
             const novoSaldo = saldo + premio;
             somAcerto?.play();
             setMessage(`🎉 Parabéns! Você ganhou R$ ${premio.toFixed(2)}!`);
@@ -78,7 +78,7 @@ export default function Home() {
 
     const pararJogo = () => {
         alert(`Você parou com R$ ${saldo.toFixed(2)}`);
-        atualizarSaldo(0);
+        atualizarSaldo(10);
         iniciarJogo();
     };
 
