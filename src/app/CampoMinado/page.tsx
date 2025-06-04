@@ -6,13 +6,11 @@ export default function Home() {
     const linhas = 5;
     const colunas = 5;
     const [minas, setMinas] = useState<boolean[][]>([]);
-    const [saldo, setSaldo] = useState(0);
+    const [saldo, setSaldo] = useState(10);
     const [jogoAtivo, setJogoAtivo] = useState(true);
     const [message, setMessage] = useState("");
     const [aposta, setAposta] = useState<number | "">("");
-    const [celulasReveladas, setCelulasReveladas] = useState(
-        new Set<string>()
-    );
+    const [celulasReveladas, setCelulasReveladas] = useState(new Set<string>());
 
     const somExplosao = typeof Audio !== "undefined" ? new Audio("/explosion.mp3") : null;
     const somAcerto = typeof Audio !== "undefined" ? new Audio("/acerto.mp3") : null;
@@ -38,7 +36,7 @@ export default function Home() {
 
         setMinas(novaMatriz);
         setJogoAtivo(true);
-        setMessage("Escolha uma célula!");
+        setMessage("🚀 Escolha uma célula!");
         setCelulasReveladas(new Set());
     };
 
@@ -49,7 +47,7 @@ export default function Home() {
     const revelarCelula = (x: number, y: number) => {
         if (!jogoAtivo) return;
         if (aposta === "" || aposta <= 0) {
-            setMessage("Digite um valor válido para apostar.");
+            setMessage("⚠️ Digite um valor válido para apostar.");
             return;
         }
 
@@ -62,7 +60,7 @@ export default function Home() {
 
         if (minas[x][y]) {
             somExplosao?.play();
-            setMessage(`💥 BOOM! Você perdeu R$ ${aposta.toFixed(2)}.`);
+            setMessage(`💥 BOOM! Você perdeu R$ ${Number(aposta).toFixed(2)}.`);
             setJogoAtivo(false);
             setTimeout(() => {
                 alert("Você perdeu tudo!");
@@ -70,7 +68,7 @@ export default function Home() {
                 iniciarJogo();
             }, 1000);
         } else {
-            const premio = (aposta as number) * 1.5;
+            const premio = Number(aposta) * 1.5;
             const novoSaldo = saldo + premio;
             somAcerto?.play();
             setMessage(`🎉 Parabéns! Você ganhou R$ ${premio.toFixed(2)}!`);
@@ -85,21 +83,20 @@ export default function Home() {
     };
 
     return (
-        <main className="h-screen bg-[#1a1a2f] font-[Orbitron] text-white flex flex-col items-center justify-center text-center">
+        <main className="h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] font-[Arial] text-white flex flex-col items-center justify-center text-center px-4">
 
             <Link
                 href="/"
-                className={`absolute top-0 left-0 m-4 px-4 py-2 rounded-full text-lg font-bold bg-gradient-to-r from-[#006400] to-[#004d33] hover:scale-105 hover:shadow-[0_0_20px_#006400]`}
-
+                className="absolute top-4 left-4 px-4 py-2 rounded-full text-lg font-bold bg-gradient-to-r from-[#00c6ff] to-[#0072ff] hover:scale-105 hover:shadow-[0_0_20px_#00c6ff] transition"
             >
-                Voltar
+                ← Voltar
             </Link>
 
-            <h1 className="text-5xl text-[#ffcc00] mb-2 drop-shadow-[0_0_15px_#ffcc00] drop-shadow-[0_0_25px_#ffaa00]">
-                💣 Campo Minado 💣
+            <h1 className="text-5xl sm:text-6xl font-extrabold text-transparent p-2 bg-clip-text bg-gradient-to-r from-purple-500 via-pink-400 to-purple-600 text-center drop-shadow-lg">
+                Campo Minado
             </h1>
 
-            <div className="my-2 text-xl text-[#00ffcc] drop-shadow-[0_0_8px_#00ffaa]">
+            <div className="my-4 text-2xl text-[#00ffcc] drop-shadow-[0_0_10px_#00ffaa]">
                 Ganhos acumulados: R$ {saldo.toFixed(2)}
             </div>
 
@@ -146,20 +143,18 @@ export default function Home() {
                 min={1}
                 placeholder="Aposte aqui"
                 value={aposta}
-                onChange={(e) =>
-                    setAposta(e.target.value === "" ? "" : parseFloat(e.target.value))
-                }
-                className="px-4 py-2 w-[150px] rounded-[15px] border border-white/30 bg-white/10 text-white mt-2 text-center text-base backdrop-blur-sm placeholder:text-white/70"
+                onChange={(e) => setAposta(e.target.value === "" ? "" : parseFloat(e.target.value))}
+                className="px-4 py-2 w-[160px] rounded-xl border border-white/30 bg-white/10 text-white mt-4 text-center text-base backdrop-blur-sm placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#00ffcc]"
             />
 
             <button
                 onClick={pararJogo}
-                className="px-6 py-3 m-3 text-lg font-bold text-[#222] rounded-full bg-gradient-to-r from-[#ff9800] to-[#ffcc00] shadow-[0_0_15px_#ffcc00,0_0_20px_#ffaa00_inset] transition-transform hover:scale-105 hover:shadow-[0_0_25px_#ffcc00,0_0_30px_#ffaa00_inset]"
+                className="px-6 py-3 mt-6 text-lg font-bold text-[#222] rounded-xl bg-gradient-to-r from-[#ff512f] to-[#dd2476] shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_0_10px_#ff512f]"
             >
                 Parar com o saldo atual
             </button>
 
-            <div className="grid grid-cols-5 gap-2 justify-center my-6 backdrop-blur-md bg-white/5 p-3 rounded-2xl shadow-[0_8px_20px_rgba(0,0,0,0.5)] border border-white/10">
+            <div className="grid grid-cols-5 gap-3 justify-center my-8 backdrop-blur-md bg-white/5 p-5 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] border border-white/10">
                 {Array.from({ length: linhas }).map((_, i) =>
                     Array.from({ length: colunas }).map((_, j) => {
                         const chave = `${i}-${j}`;
@@ -170,11 +165,11 @@ export default function Home() {
                             <div
                                 key={chave}
                                 onClick={() => revelarCelula(i, j)}
-                                className={`w-[50px] h-[50px] border border-white/20 rounded-xl flex items-center justify-center cursor-pointer text-2xl transition 
-                ${revelado
+                                className={`w-[60px] h-[60px] border border-white/20 rounded-xl flex items-center justify-center cursor-pointer text-2xl transition-all duration-200
+                                    ${revelado
                                         ? isMina
-                                            ? "bg-[#990000] animate-explode"
-                                            : "bg-[#00ffaa]"
+                                            ? "bg-[#ff1744]"
+                                            : "bg-[#00e676]"
                                         : "bg-white/10 hover:bg-white/20 hover:scale-110 hover:shadow-[0_0_10px_#00ffaa] active:scale-95"
                                     }`}
                             >
@@ -185,7 +180,7 @@ export default function Home() {
                 )}
             </div>
 
-            <div className="mt-5 text-lg drop-shadow-[0_0_10px_rgba(0,0,0,0.7)] min-h-[1.5em]">
+            <div className="mt-4 text-xl drop-shadow-[0_0_10px_rgba(0,0,0,0.7)] min-h-[1.5em]">
                 {message}
             </div>
         </main>
