@@ -66,14 +66,14 @@ export default function Home() {
 
                 if (novoSaldo === 0) {
                     setTimeout(() => {
-                        if (confirm("💀 Você perdeu tudo! Quer recomeçar o jogo?")) {
-                            recomeçar();
+                        if (confirm("💀 Você perdeu tudo! compre outra ficha para continuar!")) {
+                            recomecar();
                         }
                     }, 1000);
                 } else if (novoSaldo > 0 && novoSaldo < 1) {
                     setTimeout(() => {
                         if (confirm("⚠️ Seu saldo é insuficiente para continuar. Quer recomeçar o jogo?")) {
-                            recomeçar();
+                            recomecar();
                         }
                     }, 500);
                 }
@@ -86,7 +86,7 @@ export default function Home() {
         }, 2000);
     };
 
-    const recomeçar = () => {
+    const recomecar = () => {
         setSaldo(10);
         setMensagem("✅ Jogo reiniciado!");
         setRoleta(["❓", "❓", "❓"]);
@@ -94,7 +94,7 @@ export default function Home() {
 
     const parar = () => {
         alert(`Você parou com R$ ${saldo.toFixed(2)}`);
-        recomeçar();
+        recomecar();
     };
 
     return (
@@ -115,39 +115,50 @@ export default function Home() {
                 Saldo acumulado: R$ {saldo.toFixed(2)}
             </div>
 
-            
+
             <div className="flex flex-wrap gap-4 p-6">
                 <button
                     onClick={() => setAposta(1)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 1 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     1 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(3)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 3 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     3 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(5)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 5 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     5 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(10)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 10 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     10 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(50)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    disabled={saldo < 50}
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 50 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     50 R$
                 </button>
@@ -163,7 +174,6 @@ export default function Home() {
                 className="px-4 py-2 w-[160px] rounded-xl border border-white/30 bg-white/10 text-white mt-4 text-center text-base backdrop-blur-sm placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#00ffcc]"
             />
 
-            {/* Roletas */}
             <div className="flex gap-6 justify-center my-6 backdrop-blur-md bg-white/5 p-5 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] border border-white/10">
                 {roleta.map((simbolo, idx) => (
                     <div
@@ -175,7 +185,6 @@ export default function Home() {
                 ))}
             </div>
 
-            {/* Botão Girar abaixo das roletas */}
             <div className="mb-4">
                 <button
                     onClick={girar}
@@ -190,7 +199,6 @@ export default function Home() {
                 </button>
             </div>
 
-            {/* Botão Parar mais abaixo */}
             <div className="mb-6">
                 <button
                     onClick={parar}
