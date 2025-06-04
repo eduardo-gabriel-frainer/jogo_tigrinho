@@ -83,7 +83,7 @@ export default function Home() {
 
             setGirando(false);
             setAposta("");
-        }, 500);
+        }, 1500);
     };
 
     const recomecar = () => {
