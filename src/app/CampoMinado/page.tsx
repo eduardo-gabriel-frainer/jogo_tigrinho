@@ -100,41 +100,53 @@ export default function Home() {
                 Ganhos acumulados: R$ {saldo.toFixed(2)}
             </div>
 
-            <div className="flex flex-wrap gap-4 p-4">
+            <div className="flex flex-wrap gap-4 p-6">
                 <button
                     onClick={() => setAposta(1)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 1 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     1 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(3)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 3 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     3 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(5)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 5 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     5 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(10)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 10 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     10 R$
                 </button>
 
                 <button
                     onClick={() => setAposta(50)}
-                    className="px-2 py-1 rounded-2xl text-white bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb] transition-all duration-300"
+                    disabled={saldo < 50}
+                    className={`px-2 py-1 rounded-2xl text-white transition-all duration-300
+                    ${saldo < 50 ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:scale-105 hover:shadow-[0_0_20px_#2563eb]'}
+                    `}
                 >
                     50 R$
                 </button>
+
             </div>
 
             <input
